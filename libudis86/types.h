@@ -40,6 +40,7 @@
 #endif /* __KERNEL__ */
 
 #if !defined(__UD_STANDALONE__)
+# include <inttypes.h>
 # include <stdint.h>
 # include <stdio.h>
 #endif

@@ -137,14 +137,14 @@ ud_syn_print_addr(struct ud *u, uint64_t addr)
     name = u->sym_resolver(u, addr, &offset);
     if (name) {
       if (offset) {
-        ud_asmprintf(u, "%s%+" FMT64 "d", name, offset);
+        ud_asmprintf(u, "%s%+"PRId64, name, offset);
       } else {
         ud_asmprintf(u, "%s", name);
       }
       return;
     }
   }
-  ud_asmprintf(u, "0x%" FMT64 "x", addr);
+  ud_asmprintf(u, "0x%"PRIx64, addr);
 }
 
 
@@ -171,7 +171,7 @@ ud_syn_print_imm(struct ud* u, const struct ud_operand *op)
     default: UD_ASSERT(!"invalid offset"); v = 0; /* keep cc happy */
     }
   }
-  ud_asmprintf(u, "0x%" FMT64 "x", v);
+  ud_asmprintf(u, "0x%"PRIx64, v);
 }
 
 
@@ -189,7 +189,7 @@ ud_syn_print_mem_disp(struct ud* u, const struct ud_operand *op, int sign)
     case 64: v = op->lval.uqword; break;
     default: UD_ASSERT(!"invalid offset"); v = 0; /* keep cc happy */
     }
-    ud_asmprintf(u, "0x%" FMT64 "x", v);
+    ud_asmprintf(u, "0x%"PRIx64, v);
   } else {
     int64_t v;
     UD_ASSERT(op->offset != 64);
@@ -200,9 +200,9 @@ ud_syn_print_mem_disp(struct ud* u, const struct ud_operand *op, int sign)
     default: UD_ASSERT(!"invalid offset"); v = 0; /* keep cc happy */
     }
     if (v < 0) {
-      ud_asmprintf(u, "-0x%" FMT64 "x", -v);
+      ud_asmprintf(u, "-0x%"PRIx64, -v);
     } else if (v > 0) {
-      ud_asmprintf(u, "%s0x%" FMT64 "x", sign? "+" : "", v);
+      ud_asmprintf(u, "%s0x%"PRIx64, sign? "+" : "", v);
     }
   }
 }

@@ -72,22 +72,6 @@
 # define UD_NON_STANDALONE(x)
 #endif
 
-/* printf formatting int64 specifier */
-#ifdef FMT64
-# undef FMT64
-#endif
-#if defined(_MSC_VER) || defined(__BORLANDC__)
-# define FMT64 "I64"
-#else
-# if defined(__APPLE__)
-#  define FMT64 "ll"
-# elif defined(__amd64__) || defined(__x86_64__)
-#  define FMT64 "l"
-# else 
-#  define FMT64 "ll"
-# endif /* !x64 */
-#endif
-
 /* define an inline macro */
 #if defined(_MSC_VER) || defined(__BORLANDC__)
 # define UD_INLINE __inline /* MS Visual Studio requires __inline
