@@ -203,8 +203,16 @@ int main(int argc, char **argv)
 
   /* disassembly loop */
   while (ud_disassemble(&ud_obj)) {
-	if (o_do_off)
-		printf("%016" FMT64 "x ", ud_insn_off(&ud_obj));
+	if (o_do_off) {
+		uint64_t off = ud_insn_off(&ud_obj);
+		if (off <= UINT16_MAX) {
+			printf("%04"PRIx16" ", (uint16_t)off);
+		} else if (off <= UINT32_MAX) {
+			printf("%08"PRIx32" ", (uint32_t)off);
+		} else {
+			printf("%016"PRIx64" ", off);
+		}
+	}
 	if (o_do_hex) {
 		const char* hex1, *hex2;
 		hex1 = ud_insn_hex(&ud_obj);
